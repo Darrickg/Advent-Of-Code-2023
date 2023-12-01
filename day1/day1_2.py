@@ -1,25 +1,27 @@
-file = 'day1.txt'
-read_file = open(file, 'r')
+with open("day1.txt") as file:
+    words = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    part1 = 0
+    part2 = 0
 
-total = 0
+    for row in file:
+        numbers1 = []
+        numbers2 = []
+        i = 0
 
-for line in read_file:
+        while i < len(row):
 
-    result_string = ''
+            if row[i].isdigit():
+                numbers1.append(row[i])
+                numbers2.append(row[i])
 
-    for letter in line:
+            for word in words:
+                if i < len(row) - len(word) and row[i:i + len(word)] == word:
+                    numbers2.append(words.index(word) + 1)
 
-        if letter.isnumeric():
-            result_string += letter
-            break
+            i += 1
 
-    for i in range(len(line)-1, -1, -1):
-
-        if line[i].isnumeric():
-            result_string += line[i]
-            break
-
-    print(result_string)
-    total += int(result_string)
-
-print(total)
+        part1 += int(f"{numbers1[0]}{numbers1[-1]}")
+        part2 += int(f"{numbers2[0]}{numbers2[-1]}")
+        
+    print(part1)
+    print(part2)
